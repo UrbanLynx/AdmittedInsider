@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var Application = require('../models/Application');
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
@@ -22,7 +23,8 @@ var userSchema = new mongoose.Schema({
     picture: { type: String, default: '' }
   },
 
-  applications: [{type: mongoose.Schema.Types.ObjectId, ref: "Application"}],
+  //applications: [{type: mongoose.Schema.Types.ObjectId, ref: "Application"}],
+  applications: [Application.schema],
 
   resetPasswordToken: String,
   resetPasswordExpires: Date

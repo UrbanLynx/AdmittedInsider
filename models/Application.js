@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var Card = require('../models/Card')
 
 var applicationSchema = new mongoose.Schema({
   university: {
@@ -11,7 +12,7 @@ var applicationSchema = new mongoose.Schema({
     name: String,
     description: String
   },
-  cards: [{type: mongoose.Schema.Types.ObjectId, ref: "Card"}]
+  cards: [Card.schema]
 });
 
 module.exports = mongoose.model('Application', applicationSchema);

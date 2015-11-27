@@ -125,7 +125,11 @@ app.get('/uniapp', uniappController.getOverview);
 /**
  * Error Handler.
  */
+app.use(function(req, res, next) {
+  res.status(404).send('Sorry cant find that!');
+});
 app.use(errorHandler());
+
 
 /**
  * Start Express server.

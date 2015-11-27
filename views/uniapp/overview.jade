@@ -1,3 +1,16 @@
 extends ../layout
 
 block content
+  div
+    form.navbar-form.navbar-left.col-md-6(role='search')
+      .form-group
+          input.form-control(type='text', placeholder='Search')
+          |     
+          button.btn.btn-default(type='submit') Submit
+    
+    form.navbar-form.navbar-right.col-md-6(role='search')
+      .form-group
+          input.form-control(type='text', placeholder='Search')
+          |     
+          button.btn.btn-default(type='submit') Submit
+
