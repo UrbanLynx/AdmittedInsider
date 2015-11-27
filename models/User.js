@@ -22,12 +22,12 @@ var userSchema = new mongoose.Schema({
     picture: { type: String, default: '' }
   },
 
-  applications: [{type: mongoose.Schema.Types.ObjectId, ref: "Application"}]
+  applications: [{type: mongoose.Schema.Types.ObjectId, ref: "Application"}],
 
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });
-
+t
 /**
  * Password hash middleware.
  */
