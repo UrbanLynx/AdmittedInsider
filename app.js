@@ -94,6 +94,8 @@ app.use(function(req, res, next) {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
+// TODO: delete below line and place neccessary files in the Public
+app.use('/node_modules', express.static(__dirname + '/node_modules/'));
 
 /**
  * Primary app routes.
