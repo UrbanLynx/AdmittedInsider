@@ -3,8 +3,8 @@ function shadow(int){
 }
 
 function update(){
-  var list = $(.card); //loop through all HTML elements with the class card. 
-  var list = /*document.getElementsByTagName("card"); */$(.card);
+  var list = $('.card'); //loop through all HTML elements with the class card. 
+  //var list = /*document.getElementsByTagName("card"); */$(.card);
   //uncomment line above if you want to use <card> instead of <div class='card'>
   var len = list.length;
   for(i=0;i<len;i++){
