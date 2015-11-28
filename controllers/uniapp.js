@@ -19,13 +19,14 @@ exports.getUniversity = function(req, res, next) {
 };
 
 exports.postUniversity = function(req, res, next) {
+  console.log('Hi from postUniversity')
   req.assert('universityName', "University name can't be empty").len(1);
 
   var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/overview');
+    return res.redirect('/uniapp');
   }
 
   var application = new Application();
@@ -35,13 +36,20 @@ exports.postUniversity = function(req, res, next) {
   application.program.description = req.body.programDescription
 
   User.findById(req.user.id, function(err, user) {
+    console.log('Hi from findById')
     if (err) return next(err);
 
     user.applications.push(application)
 
     user.save(function(err) {
+      
       if (err) return next(err);
+      console.log('Hi from user.save')
+
       req.flash('success', { msg: 'University added.' });
+      //res.end()
+      //res.redirect('/contact');
+      res.redirect('/uniapp');
     });
   });
 }

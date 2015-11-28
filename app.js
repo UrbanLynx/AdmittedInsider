@@ -122,6 +122,9 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  * Application routes.
  */
 app.get('/uniapp', uniappController.getOverview);
+app.post('/uniapp', uniappController.postUniversity)
+app.get('/uniapp/university', uniappController.getUniversity)
+app.post('/uniapp/university', uniappController.postCard)
 
 
 /**

@@ -4,9 +4,13 @@
 }
 .demo-card-wide > .mdl-card__title {
   color: #fff;
-  height: 176px;
-  background: #1ff;
+  height: auto;
+  background: #aaf;
 }
 .demo-card-wide > .mdl-card__menu {
   color: #fff;
+}
+
+.form-card{
+	margin: 10px;
 }
