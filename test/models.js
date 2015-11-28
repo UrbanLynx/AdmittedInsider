@@ -2,6 +2,8 @@ var chai = require('chai');
 var should = chai.should();
 var User = require('../models/User');
 var Application = require('../models/Application');
+var Card = require('../models/Card');
+var Factory = require('../models/Factory');
 
 describe('User Model', function() {
   it('should create a new user', function(done) {
@@ -45,6 +47,23 @@ describe('User Model', function() {
       if (err) return next(err);
       user.applications.push(application)
 
+      user.save(function(err) {
+        if (err) return next(err);
+        done();
+      });
+    });
+  })
+
+  it('should add TOEFL card', function(done){
+    var card = Factory.getCardOfType('toefl');
+    var application = new Application();
+    application.cards.push(card);
+
+    User.findOne({ email: 'test@gmail.com' }, function(err, user) {
+      if (err) return next(err);
+      
+      user.applications.push(application);
+      
       user.save(function(err) {
         if (err) return next(err);
         done();

@@ -1,5 +1,6 @@
 var User = require('../models/User');
 var Application = require('../models/Application');
+var Factory = require('../models/Factory');
 
 /**
  * GET /contact
@@ -12,9 +13,10 @@ exports.getOverview = function(req, res) {
 };
 
 exports.getUniversity = function(req, res, next) {
-
-
-}
+  res.render('uniapp/university', {
+    title: 'University'
+  });
+};
 
 exports.postUniversity = function(req, res, next) {
   req.assert('universityName', "University name can't be empty").len(1);
@@ -26,7 +28,7 @@ exports.postUniversity = function(req, res, next) {
     return res.redirect('/overview');
   }
 
-  var application = new Application()
+  var application = new Application();
   application.university.name = req.body.universityName,
   application.university.description = req.body.universityDescription,
   application.program.name = req.body.programName,
@@ -40,6 +42,22 @@ exports.postUniversity = function(req, res, next) {
     user.save(function(err) {
       if (err) return next(err);
       req.flash('success', { msg: 'University added.' });
+    });
+  });
+}
+
+exports.postCard = function(req, res, next) {
+
+  var card = Factory.getCardOfType(req.body.newCardType)
+
+  Application.findById(req.application.id, function(err, application) {
+    if (err) return next(err);
+
+    application.cards.push(card);
+
+    application.save(function(err) {
+      if (err) return next(err);
+      req.flash('success', { msg: 'Card added.' });
     });
   });
 }
