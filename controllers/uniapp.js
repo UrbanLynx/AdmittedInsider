@@ -18,6 +18,25 @@ exports.getUniversity = function(req, res, next) {
   });
 };
 
+exports.updateUniversity = function(req, res) {
+  var name = req.body.universityName;
+  var description = req.body.universityDescription;
+  
+  // Check for this element in the applications array and make the changes
+  User.findById(req.user.id, function(err, user) {
+    for(var i=0; i<user.applications.length; ++i){
+      if(user.applications[i].university.name == name){
+        user.applications[i].university.description = description;
+        break;
+      }
+    }
+    user.save(function(err) {
+      req.flash('success', { msg: 'University details updated.' });
+      res.redirect('/overview');
+    });
+  });
+};
+
 exports.postUniversity = function(req, res, next) {
   console.log('Hi from postUniversity')
   req.assert('universityName', "University name can't be empty").len(1);
@@ -26,6 +45,7 @@ exports.postUniversity = function(req, res, next) {
 
   if (errors) {
     req.flash('errors', errors);
+    return res.redirect('/overview');
   }
 
   var application = new Application();
