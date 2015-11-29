@@ -26,7 +26,6 @@ exports.postUniversity = function(req, res, next) {
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/uniapp');
   }
 
   var application = new Application();

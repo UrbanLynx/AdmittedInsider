@@ -14,7 +14,9 @@ block content
                   h5 #{application.university.name}
                   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                     textarea#sample5.mdl-textfield__input(type='text', rows='1', name='universityDescription')
-                    label.mdl-textfield__label(for='sample5') Dscription of university...
+                      if application.university.description
+                        | #{application.university.description}
+                    label.mdl-textfield__label(for='sample5') Description of university...
                 .mdl-card__actions.mdl-card--border
                   button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit')
                     | Update
@@ -36,7 +38,7 @@ block content
                 
                 .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                   textarea#sample5.mdl-textfield__input(type='text', rows='1', name='universityDescription')
-                  label.mdl-textfield__label(for='sample5') Dscription of university...
+                  label.mdl-textfield__label(for='sample5') Description of university...
               .mdl-card__actions.mdl-card--border
                 button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit')
                   | Add application

@@ -11,7 +11,6 @@ var logger = require('morgan');
 var errorHandler = require('errorhandler');
 var lusca = require('lusca');
 var methodOverride = require('method-override');
-
 var _ = require('lodash');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('express-flash');
@@ -20,7 +19,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var sass = require('node-sass-middleware');
-
 
 /**
  * Controllers (route handlers).
@@ -122,11 +120,9 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  * Application routes.
  */
 app.get('/overview', uniappController.getOverview);
-app.post('/overview/add-uni', uniappController.postUniversity)
-
-app.get('/university', uniappController.getUniversity)
-app.post('/university/add-card', uniappController.postCard)
-
+app.post('/overview/add-uni', uniappController.postUniversity);
+app.get('/university', uniappController.getUniversity);
+app.post('/university/add-card', uniappController.postCard);
 
 /**
  * Error Handler.
@@ -135,7 +131,6 @@ app.use(function(req, res, next) {
   res.status(404).send('Sorry cant find that!');
 });
 app.use(errorHandler());
-
 
 /**
  * Start Express server.
