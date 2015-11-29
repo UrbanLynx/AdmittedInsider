@@ -120,8 +120,7 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  * Application routes.
  */
 app.get('/overview', uniappController.getOverview);
-app.post('/overview/add-uni', uniappController.postUniversity);
-app.post('/overview/update-uni', uniappController.updateUniversity);
+app.post('/overview/handle-button', uniappController.handleButton);
 app.get('/university', uniappController.getUniversity);
 app.post('/university/add-card', uniappController.postCard);
 

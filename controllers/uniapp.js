@@ -6,19 +6,8 @@ var Factory = require('../models/Factory');
  * GET /contact
  * Contact form page.
  */
-exports.getOverview = function(req, res) {
-  res.render('uniapp/overview', {
-    title: 'Overview'
-  });
-};
 
-exports.getUniversity = function(req, res, next) {
-  res.render('uniapp/university', {
-    title: 'University'
-  });
-};
-
-exports.updateUniversity = function(req, res) {
+updateUniversity = function(req, res) {
   var name = req.body.universityName;
   var description = req.body.universityDescription;
   
@@ -37,7 +26,17 @@ exports.updateUniversity = function(req, res) {
   });
 };
 
-exports.postUniversity = function(req, res, next) {
+deleteUniversity = function(req, res){
+  var university_name = req.universityName;
+  User.findById(req.user.id, function(err, user) {
+    // This doesn't seem to work
+    Application.remove({"applications" : {"university" : {"name" : university_name}}});
+    req.flash('success', { msg: 'University successfully deleted.' });
+    res.redirect('/overview');
+  });
+};
+
+postUniversity = function(req, res) {
   console.log('Hi from postUniversity')
   req.assert('universityName', "University name can't be empty").len(1);
 
@@ -56,22 +55,45 @@ exports.postUniversity = function(req, res, next) {
 
   User.findById(req.user.id, function(err, user) {
     console.log('Hi from findById')
-    if (err) return next(err);
-
     user.applications.push(application)
-
     user.save(function(err) {
-      
-      if (err) return next(err);
       console.log('Hi from user.save')
-
       req.flash('success', { msg: 'University added.' });
       //res.end()
       //res.redirect('/contact');
       res.redirect('/overview');
     });
   });
-}
+};
+
+exports.handleButton = function(req, res){
+  if('Update' in req.body){
+    updateUniversity(req, res);
+  }
+  else if('Delete' in req.body){
+    deleteUniversity(req, res);
+  }
+  else if('Add' in req.body){
+    postUniversity(req, res);
+  }
+  else{
+    res.render('uniapp/overview', {
+      title: 'Overview'
+    });
+  }
+};
+
+exports.getOverview = function(req, res) {
+  res.render('uniapp/overview', {
+    title: 'Overview'
+  });
+};
+
+exports.getUniversity = function(req, res, next) {
+  res.render('uniapp/university', {
+    title: 'University'
+  });
+};
 
 exports.postCard = function(req, res, next) {
 
