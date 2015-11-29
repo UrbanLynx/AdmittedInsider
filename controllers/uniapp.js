@@ -49,7 +49,7 @@ exports.postUniversity = function(req, res, next) {
       req.flash('success', { msg: 'University added.' });
       //res.end()
       //res.redirect('/contact');
-      res.redirect('/uniapp');
+      res.redirect('/overview');
     });
   });
 }
