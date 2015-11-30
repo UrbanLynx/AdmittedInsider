@@ -121,8 +121,9 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  */
 app.get('/overview', uniappController.getOverview);
 app.post('/overview/handle-button', uniappController.handleButton);
-app.get('/university', uniappController.getUniversity);
+//app.get('/application', uniappController.getApplication);
 //app.post('/university/add-card', uniappController.viewUniversity);
+app.get('/application/:id', uniappController.getApplication)
 
 /**
  * Error Handler.

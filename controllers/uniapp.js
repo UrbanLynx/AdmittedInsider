@@ -6,19 +6,35 @@ var Factory = require('../models/Factory');
  * GET /contact
  * Contact form page.
  */
+exports.getOverview = function(req, res) {
+  res.render('uniapp/overview', {
+    title: 'Overview'
+  });
+};
 
-updateUniversity = function(req, res) {
-  var name = req.body.universityName;
-  var description = req.body.universityDescription;
+exports.getApplication = function(req, res, next) {
+  console.log('getApplication')
+  console.log(req.originalUrl)
+  console.log(req.params.id)
+  applicationId = req.params.id
+  console.log(applicationId)
+  User.findById(req.user.id, function(err, user) {
+    applicationReq = user.applications[getApplicationIndex(applicationId, user.applications)]
+    console.log(applicationReq.id)
+    res.render('uniapp/university', {application: applicationReq})   
+    //res.redirect('application/id_'+req.body.applicationId)
+  });
+  // res.render('uniapp/university', {
+  //   title: 'University'
+  // });
+};
+
+updateApplication = function(req, res) {
   
   // Check for this element in the applications array and make the changes
   User.findById(req.user.id, function(err, user) {
-    for(var i=0; i<user.applications.length; ++i){
-      if(user.applications[i].university.name == name){
-        user.applications[i].university.description = description;
-        break;
-      }
-    }
+    applicationInd = getApplicationIndex(req.body.applicationId, user.applications)
+    user.applications[applicationInd].university.description = req.body.universityDescription;
     user.save(function(err) {
       req.flash('success', { msg: 'University details updated.' });
       res.redirect('/overview');
@@ -26,29 +42,23 @@ updateUniversity = function(req, res) {
   });
 };
 
-// getApplicationIndex = function(id, applications){
-//   for (int i=0; i< applications.length; i++){
-//     if (applications[i].id == id){
-//       return i;
-//     }
-//   }
-//   return -1;
-// }
+getApplicationIndex = function(id, applications){
+  console.log('asked '+id)
+  for (i=0; i< applications.length; i++){
+    console.log(i + " " + applications[i].id)
+    if (applications[i].id == id){
+      return i;
+    }
+  }
+  return -1;
+}
 
-deleteUniversity = function(req, res){
-  console.log('deleteUniversity')
+deleteApplication = function(req, res){
+  console.log('deleteApplication')
   console.log(req.body.applicationId)
-  console.log(req.user.id)
+  //console.log(req.user.id)
 
   User.findById(req.user.id, function(err, user) {
-    // appIndex = getApplicationIndex(user.applications, req.applicationId)
-    // console.log(appIndex)
-    // if (appIndex > -1) {
-    //   user.applications.splice(appIndex, 1);
-    // }
-    // else{
-    //   return next(err);
-    // }
     user.applications = user.applications.filter(function( obj ) {
         return obj.id !== req.body.applicationId;
     });
@@ -61,14 +71,29 @@ deleteUniversity = function(req, res){
   });
 };
 
-viewUniversity = function(req, res){
-  var university_name = req.body.universityName;
-    req.flash('success', { msg: 'hello ' + req.body.universityName });
-    res.redirect('/university');
+viewApplication = function(req, res){
+  res.redirect('/application/'+req.body.applicationId)
+  // appIndex = getApplicationIndex(user.applications, req.applicationId)
+    // console.log(appIndex)
+    // if (appIndex > -1) {
+    //   user.applications.splice(appIndex, 1);
+    // }
+    // else{
+    //   return next(err);
+    // }
+  //var university_name = req.body.universityName;
+  //req.flash('success', { msg: 'hello ' + req.body.universityName });
+  //res.redirect('/university');
+  // User.findById(req.user.id, function(err, user) {
+  //   //applicationReq = user.applications[getApplicationIndex(req.body.applicationId, user.applications)]
+  //   //res.render('uniapp/university'+{application: applicationReq})   
+  //   res.redirect('application/id_'+req.body.applicationId)
+  // });
+  
 };
 
-postUniversity = function(req, res) {
-  console.log('Hi from postUniversity')
+postApplication = function(req, res) {
+  console.log('Hi from postApplication')
   req.assert('universityName', "University name can't be empty").len(1);
 
   var errors = req.validationErrors();
@@ -99,16 +124,16 @@ postUniversity = function(req, res) {
 
 exports.handleButton = function(req, res){
   if('Update' in req.body){
-    updateUniversity(req, res);
+    updateApplication(req, res);
   }
   else if('Delete' in req.body){
-    deleteUniversity(req, res);
+    deleteApplication(req, res);
   }
   else if('Add' in req.body){
-    postUniversity(req, res);
+    postApplication(req, res);
   }
   else if('View' in req.body){
-    viewUniversity(req, res);
+    viewApplication(req, res);
   }
   else{
     res.render('uniapp/overview', {
@@ -117,17 +142,6 @@ exports.handleButton = function(req, res){
   }
 };
 
-exports.getOverview = function(req, res) {
-  res.render('uniapp/overview', {
-    title: 'Overview'
-  });
-};
-
-exports.getUniversity = function(req, res, next) {
-  res.render('uniapp/university', {
-    title: 'University'
-  });
-};
 
 exports.postCard = function(req, res, next) {
 
