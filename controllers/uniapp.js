@@ -27,8 +27,11 @@ updateUniversity = function(req, res) {
 };
 
 deleteUniversity = function(req, res){
+  console.log('deleteUniversity')
+
   var university_name = req.universityName;
   User.findById(req.user.id, function(err, user) {
+    
     // This doesn't seem to work
     Application.remove({"applications" : {"university" : {"name" : university_name}}});
     req.flash('success', { msg: 'University successfully deleted.' });
