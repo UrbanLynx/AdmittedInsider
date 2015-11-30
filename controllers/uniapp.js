@@ -36,6 +36,22 @@ deleteUniversity = function(req, res){
   });
 };
 
+exports.viewUniversity= function(req, res){
+  var university_name = req.body.universityName;
+  User.findById(req.user.id, function(err, user) {
+    for(var i=0; i<user.applications.length; ++i){
+      if(user.applications[i].university.name == university_name){
+        var card = Factory.getCardOfType(req.body.newCardType);
+        card=application.cards.pop();
+
+      }
+
+      }
+    req.flash('success', { msg: 'hello ' + req.body.universityName });
+    res.redirect('/university'+'UCSD');
+});
+};
+
 postUniversity = function(req, res) {
   console.log('Hi from postUniversity')
   req.assert('universityName', "University name can't be empty").len(1);
@@ -75,6 +91,9 @@ exports.handleButton = function(req, res){
   }
   else if('Add' in req.body){
     postUniversity(req, res);
+  }
+  else if('View' in req.body){
+    viewUniversity(req, res);
   }
   else{
     res.render('uniapp/overview', {
