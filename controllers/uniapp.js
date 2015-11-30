@@ -26,16 +26,38 @@ updateUniversity = function(req, res) {
   });
 };
 
+// getApplicationIndex = function(id, applications){
+//   for (int i=0; i< applications.length; i++){
+//     if (applications[i].id == id){
+//       return i;
+//     }
+//   }
+//   return -1;
+// }
+
 deleteUniversity = function(req, res){
   console.log('deleteUniversity')
+  console.log(req.body.applicationId)
+  console.log(req.user.id)
 
-  var university_name = req.universityName;
   User.findById(req.user.id, function(err, user) {
+    // appIndex = getApplicationIndex(user.applications, req.applicationId)
+    // console.log(appIndex)
+    // if (appIndex > -1) {
+    //   user.applications.splice(appIndex, 1);
+    // }
+    // else{
+    //   return next(err);
+    // }
+    user.applications = user.applications.filter(function( obj ) {
+        return obj.id !== req.body.applicationId;
+    });
     
-    // This doesn't seem to work
-    Application.remove({"applications" : {"university" : {"name" : university_name}}});
-    req.flash('success', { msg: 'University successfully deleted.' });
-    res.redirect('/overview');
+    user.save(function(err) {
+      if (err) return next(err);
+      req.flash('success', { msg: 'University successfully deleted.' });
+      res.redirect('/overview');
+    });    
   });
 };
 

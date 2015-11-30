@@ -9,6 +9,7 @@ block content
           for application in user.applications
             form.form-card.form-horizontal(action='/overview/handle-button', method='POST')
               input(type='hidden', name='_csrf', value=_csrf)
+              input(type='hidden', name='applicationId', value=application.id)
               .mdl-card.mdl-shadow--2dp                    
                 .mdl-card__supporting-text
                   h5 #{application.university.name}
