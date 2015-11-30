@@ -36,20 +36,10 @@ deleteUniversity = function(req, res){
   });
 };
 
-exports.viewUniversity= function(req, res){
+viewUniversity = function(req, res){
   var university_name = req.body.universityName;
-  User.findById(req.user.id, function(err, user) {
-    for(var i=0; i<user.applications.length; ++i){
-      if(user.applications[i].university.name == university_name){
-        var card = Factory.getCardOfType(req.body.newCardType);
-        card=application.cards.pop();
-
-      }
-
-      }
     req.flash('success', { msg: 'hello ' + req.body.universityName });
-    res.redirect('/university'+'UCSD');
-});
+    res.redirect('/university');
 };
 
 postUniversity = function(req, res) {

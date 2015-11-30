@@ -14,7 +14,7 @@ module.exports.getCardOfType = function (type){
       card.fields.push({content: {'type': 'input', 'text': 'University Code', 'input': '92122'}});
       break;
     default:
-      cards.fields.push('nothing')
+      card.fields.push('nothing')
   }
   return card;
 }

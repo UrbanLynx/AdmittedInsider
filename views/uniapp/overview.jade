@@ -21,16 +21,11 @@ block content
                     label.mdl-textfield__label(for='sample5') Description of university...
                 .mdl-card__actions.mdl-card--border
                   input(type='submit', name='Update', value='Update')
-                  input(type='submit', name=application.university.name value='View')
-
                 .mdl-card__menu
                   input(type='submit', name='Delete', value='Delete')
+                .mdl-card__actions.mdl-card--border
+                  input(type='submit', name='View' value='View')
 
-            form.form-card.form-horizontal(action='/university/add-card', method='POST' id=application.university.name)
-              input(type='hidden', name='_csrf', value=_csrf)
-              .mdl-card.mdl-shadow--2dp
-                .mdl-card__supporting-text
-                  input(type='submit', name=application.university.name value='View')
 
 
 
