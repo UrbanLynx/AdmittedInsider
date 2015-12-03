@@ -27,6 +27,7 @@ var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var uniappController = require('./controllers/uniapp');
 var contactController = require('./controllers/contact');
+var cardController = require('./controllers/card');
 
 /**
  * API keys and Passport configuration.
@@ -121,9 +122,10 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  */
 app.get('/overview', uniappController.getOverview);
 app.post('/overview/handle-button', uniappController.handleButton);
+app.post('/application/handle-button', cardController.handleButton);
 //app.get('/application', uniappController.getApplication);
 //app.post('/university/add-card', uniappController.viewUniversity);
-app.get('/application/:id', uniappController.getApplication)
+app.get('/application/:id', cardController.getApplication);
 
 /**
  * Error Handler.
