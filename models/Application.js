@@ -6,7 +6,9 @@ var Card = require('../models/Card')
 var applicationSchema = new mongoose.Schema({
   university: {
     name: String,
-    description: String
+    description: String,
+    deadline: String,
+    done: Boolean
   },
   program: {
     name: String,

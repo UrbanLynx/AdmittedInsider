@@ -12,29 +12,19 @@ exports.getOverview = function(req, res) {
   });
 };
 
-exports.getApplication = function(req, res, next) {
-  console.log('getApplication')
-  console.log(req.originalUrl)
-  console.log(req.params.id)
-  applicationId = req.params.id
-  console.log(applicationId)
-  User.findById(req.user.id, function(err, user) {
-    applicationReq = user.applications[getApplicationIndex(applicationId, user.applications)]
-    console.log(applicationReq.id)
-    res.render('uniapp/university', {application: applicationReq})   
-    //res.redirect('application/id_'+req.body.applicationId)
-  });
-  // res.render('uniapp/university', {
-  //   title: 'University'
-  // });
-};
-
 updateApplication = function(req, res) {
   
   // Check for this element in the applications array and make the changes
   User.findById(req.user.id, function(err, user) {
-    applicationInd = getApplicationIndex(req.body.applicationId, user.applications)
+    applicationInd = Factory.getApplicationIndex(req.body.applicationId, user.applications)
     user.applications[applicationInd].university.description = req.body.universityDescription;
+    user.applications[applicationInd].university.deadline = req.body.universityDeadline;
+    if('Done' in req.body){
+      user.applications[applicationInd].university.done = true;
+    }
+    else if('Undo' in req.body){
+      user.applications[applicationInd].university.done = false;
+    }
     user.save(function(err) {
       req.flash('success', { msg: 'University details updated.' });
       res.redirect('/overview');
@@ -42,16 +32,6 @@ updateApplication = function(req, res) {
   });
 };
 
-getApplicationIndex = function(id, applications){
-  console.log('asked '+id)
-  for (i=0; i< applications.length; i++){
-    console.log(i + " " + applications[i].id)
-    if (applications[i].id == id){
-      return i;
-    }
-  }
-  return -1;
-}
 
 deleteApplication = function(req, res){
   console.log('deleteApplication')
@@ -135,8 +115,14 @@ exports.handleButton = function(req, res){
   else if('View' in req.body){
     viewApplication(req, res);
   }
+  else if('Done' in req.body){
+    updateApplication(req, res);
+  }
+  else if('Undo' in req.body){
+    updateApplication(req, res);
+  }
   else{
-    res.render('uniapp/overview', {
+    res.render('overview', {
       title: 'Overview'
     });
   }
