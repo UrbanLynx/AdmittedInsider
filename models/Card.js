@@ -9,8 +9,7 @@ var fieldSchema = new mongoose.Schema({
 var cardSchema = new mongoose.Schema({
   type: String,
   fields: [{ 
-    content: {},
-    _id: false
+    content: {}
   }]
 
   	// checkbox: {
