@@ -1,45 +1,54 @@
 extends ../layout
 
 block content
-  h2 Application for #{application.university.name}
-  .mdl-layout.mdl-js-layout.mdl-color--grey-100
-      main.mdl-layout__content
-        .mdl-grid
-          #application
-          for card in application.cards
-            form.form-card.form-horizontal(action='/application/handle-button', method='POST')
-              input(type='hidden', name='_csrf', value=_csrf)
-              input(type='hidden', name='cardType', value=card.type)
-              input(type='hidden', name='applicationId', value=application.id)
-              .mdl-card.mdl-shadow--2dp                    
-                .mdl-card__supporting-text
-                  h5 #{card.type}
-                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                    for field in card.fields
-                      if field.content.type == 'input'
-                        .mdl-textfield.mdl-js-textfield
-                          input#sample1.mdl-textfield__input(type='text', name='input', value=field.content.input)
-                          label.mdl-textfield__label(for='sample1') #{field.content.text}
-                .mdl-card__actions.mdl-card--border
-                  button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Update', value='Update')
-                    | Update
-                .mdl-card__menu
-                  button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Delete', value='Delete')
-                    i.material-icons delete
+	h2 Application for #{application.university.name}
+	.mdl-layout.mdl-js-layout.mdl-color--grey-100
+			main.mdl-layout__content
+				.mdl-grid
+					#application
+					for card in application.cards
+						form.form-card.form-horizontal(action='/application/handle-button', method='POST')
+							input(type='hidden', name='_csrf', value=_csrf)
+							input(type='hidden', name='cardType', value=card.type)
+							input(type='hidden', name='applicationId', value=application.id)
+							.mdl-card.mdl-shadow--2dp                    
+								.mdl-card__supporting-text
+									h5 #{card.type}
+									.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+										for field in card.fields
+											if field.content.type == 'input'
+												.mdl-textfield.mdl-js-textfield
+													input#sample1.mdl-textfield__input(type='text', name='input', value=field.content.input)
+													label.mdl-textfield__label(for='sample1') #{field.content.text}
+											else if field.content.type == 'checked'
+												if field.content.checked
+													label.mdl-checkbox.mdl-js-checkbox(for='chkbox1') #{field.content.text}
+														input#chkbox1.mdl-checkbox__input(type='checkbox', name='checked', checked='')
+														br
+												else
+													label.mdl-checkbox.mdl-js-checkbox(for='chkbox1') #{field.content.text}
+														input#chkbox1.mdl-checkbox__input(type='checkbox', name='checked')
+														br
+								.mdl-card__actions.mdl-card--border
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Update', value='Update')
+										| Update
+								.mdl-card__menu
+									button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Delete', value='Delete')
+										i.material-icons delete
 
-          form.form-card.form-horizontal(action='/application/handle-button', method='POST')
-            input(type='hidden', name='_csrf', value=_csrf)
-            input(type='hidden', name='applicationId', value=application.id)
-            .mdl-card.mdl-shadow--2dp
-              .mdl-card__title
-                h5 Add Card
-              .mdl-card__supporting-text
-                .row
-                  button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Toefl', value='Toefl')
-                    | Add TOEFL
-                .row
-                  button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Gre', value='Gre')
-                    | Add GRE
-                .row
-                  button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Recommend', value='Recommend')
-                    | Add Recommendations
+					form.form-card.form-horizontal(action='/application/handle-button', method='POST')
+						input(type='hidden', name='_csrf', value=_csrf)
+						input(type='hidden', name='applicationId', value=application.id)
+						.mdl-card.mdl-shadow--2dp
+							.mdl-card__title
+								h5 Add Card
+							.mdl-card__supporting-text
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Toefl', value='Toefl')
+										| Add TOEFL
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Gre', value='Gre')
+										| Add GRE
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Recommendations', value='Recommendations')
+										| Add Recommendations

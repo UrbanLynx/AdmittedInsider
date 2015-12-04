@@ -62,7 +62,7 @@ exports.handleButton = function(req, res){
     addCard(req, res, 'Gre');
   }
   else if('Recommendations' in req.body){
-    addRecommendation(req, res, 'Recommendations');
+    addCard(req, res, 'Recommendations');
   }
   else if('Update' in req.body){
     updateCard(req, res, req.body.cardType);
