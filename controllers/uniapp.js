@@ -18,6 +18,13 @@ updateApplication = function(req, res) {
   User.findById(req.user.id, function(err, user) {
     applicationInd = Factory.getApplicationIndex(req.body.applicationId, user.applications)
     user.applications[applicationInd].university.description = req.body.universityDescription;
+    user.applications[applicationInd].university.deadline = req.body.universityDeadline;
+    if('Done' in req.body){
+      user.applications[applicationInd].university.done = true;
+    }
+    else if('Undo' in req.body){
+      user.applications[applicationInd].university.done = false;
+    }
     user.save(function(err) {
       req.flash('success', { msg: 'University details updated.' });
       res.redirect('/overview');
@@ -107,6 +114,12 @@ exports.handleButton = function(req, res){
   }
   else if('View' in req.body){
     viewApplication(req, res);
+  }
+  else if('Done' in req.body){
+    updateApplication(req, res);
+  }
+  else if('Undo' in req.body){
+    updateApplication(req, res);
   }
   else{
     res.render('overview', {
