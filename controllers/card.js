@@ -31,6 +31,28 @@ addCard = function(req, res, type) {
   });
 };
 
+updateCard = function(req, res, type) {
+
+  User.findById(req.user.id, function(err, user) {
+    applicationInd = Factory.getApplicationIndex(req.body.applicationId, user.applications)
+
+    for(i=0; i<user.applications[applicationInd].cards.length; ++i) {
+      if(user.applications[applicationInd].cards[i].type == type) {
+        //any other input field has to be saved specifically, eg. deadline
+        console.log("Printing fields before change " + JSON.stringify(user.applications[applicationInd].cards[i]));
+        user.applications[applicationInd].cards[i].fields[0].content.input = req.body.input;
+        console.log("printing req body input " + req.body.input);
+        console.log("Printing fields after change " + JSON.stringify(user.applications[applicationInd].cards[i]));
+        break;
+      }
+    }
+  
+    user.save(function(err) {
+      req.flash('success', { msg: 'Card added.' });
+      res.redirect('/application/'+req.body.applicationId)
+    });
+   });
+}
 
 exports.handleButton = function(req, res){
   if('Toefl' in req.body){
@@ -41,6 +63,9 @@ exports.handleButton = function(req, res){
   }
   else if('Recommendations' in req.body){
     addRecommendation(req, res, 'Recommendations');
+  }
+  else if('Update' in req.body){
+    updateCard(req, res, req.body.cardType);
   }
   else{
     res.redirect('/application/'+req.body.applicationId)

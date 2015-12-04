@@ -9,6 +9,7 @@ block content
           for card in application.cards
             form.form-card.form-horizontal(action='/application/handle-button', method='POST')
               input(type='hidden', name='_csrf', value=_csrf)
+              input(type='hidden', name='cardType', value=card.type)
               input(type='hidden', name='applicationId', value=application.id)
               .mdl-card.mdl-shadow--2dp                    
                 .mdl-card__supporting-text
@@ -19,6 +20,9 @@ block content
                         .mdl-textfield.mdl-js-textfield
                           input#sample1.mdl-textfield__input(type='text', name='input', value=field.content.input)
                           label.mdl-textfield__label(for='sample1') #{field.content.text}
+                .mdl-card__actions.mdl-card--border
+                  button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Update', value='Update')
+                    | Update
                 .mdl-card__menu
                   button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Delete', value='Delete')
                     i.material-icons delete
