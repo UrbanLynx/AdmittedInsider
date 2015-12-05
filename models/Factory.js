@@ -14,9 +14,9 @@ module.exports.getCardOfType = function (type){
       card.fields.push({content: {type: 'input', text: 'University Code', input: ''}});
       break;
     case 'Recommendations':
-      card.fields.push({content: {type: 'checked', text: 'Recommender 1', checked: 'Checked'}});
-      card.fields.push({content: {type: 'checked', text: 'Recommender 2', checked: 'Checked'}});
-      card.fields.push({content: {type: 'checked', text: 'Recommender 3', checked: ''}});
+      card.fields.push({content: {type: 'checked', text: 'Recommender 1', checked: false}});
+      card.fields.push({content: {type: 'checked', text: 'Recommender 2', checked: false}});
+      card.fields.push({content: {type: 'checked', text: 'Recommender 3', checked: false}});
       break;
     default:
       card.fields.push('nothing')
