@@ -42,13 +42,13 @@ updateCard = function(req, res, type) {
       content = newFields[i].content
       console.log("Field " + i.toString())
       console.log(req.body.input+i.toString())
-      newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input'+i.toString()]}}
+      newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input' + req.body.cardIndex.toString() +i.toString()]}}
     }
     
     user.applications[applicationInd].cards[cardInd].fields = newFields;
   
     user.save(function(err) {
-      req.flash('success', { msg: 'Card added.' });
+      req.flash('success', { msg: 'Card updated.' });
       res.redirect('/application/'+req.body.applicationId)
     });
    });
@@ -63,7 +63,7 @@ deleteCard = function(req, res, type) {
     });
   
     user.save(function(err) {
-      req.flash('success', { msg: 'Card added.' });
+      req.flash('success', { msg: 'Card deleted.' });
       res.redirect('/application/'+req.body.applicationId)
     });
    });
