@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  
+
   .mdl-layout.mdl-js-layout.mdl-color--grey-100
       main.mdl-layout__content
         .mdl-grid
@@ -10,7 +10,7 @@ block content
             form.form-card.form-horizontal(action='/overview/handle-button', method='POST')
               input(type='hidden', name='_csrf', value=_csrf)
               input(type='hidden', name='applicationId', value=application.id)
-              .mdl-card.mdl-shadow--2dp                    
+              .mdl-card.mdl-shadow--2dp(name='card',id=application.university)              
                 .mdl-card__supporting-text
                   h5 #{application.university.name}
                   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -57,7 +57,7 @@ block content
                   | Add application
               .mdl-card__menu
                 button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect
-                  i.material-icons delete
+                  i.material-icons delete     
 
   //Change the color of cards and deadline                
   script(src='/js/overview.js')
