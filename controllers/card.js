@@ -44,7 +44,8 @@ updateCard = function(req, res, type) {
       console.log("Field " + i.toString())
 
 //      console.log(req.body.input+i.toString())
-      if(user.applications[applicationInd].cards[cardInd].type == 'Gre' || user.applications[applicationInd].cards[cardInd].type == 'Toefl')
+      if(user.applications[applicationInd].cards[cardInd].type == 'Gre' || user.applications[applicationInd].cards[cardInd].type == 'Toefl'
+        || user.applications[applicationInd].cards[cardInd].type == 'SOP' || user.applications[applicationInd].cards[cardInd].type == 'Resume')
         newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input' + cardInd.toString() + i.toString()]}};
       else
       {
@@ -96,6 +97,12 @@ exports.handleButton = function(req, res){
   }
   else if('Delete' in req.body){
     deleteCard(req, res);
+  }
+  else if('Resume' in req.body){
+    addCard(req, res, 'Resume');
+  }
+  else if('SOP' in req.body){
+    addCard(req, res, 'SOP');
   }
   else{
     res.redirect('/application/'+req.body.applicationId)

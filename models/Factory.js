@@ -13,6 +13,12 @@ module.exports.getCardOfType = function (type){
     case 'Gre':
       card.fields.push({content: {type: 'input', text: 'University Code', input: ''}});
       break;
+    case 'SOP':
+      card.fields.push({content: {type: 'input', text: 'GDrive Link', input: ''}});
+      break;
+    case 'Resume':
+      card.fields.push({content: {type: 'input', text: 'GDrive Link', input: ''}});
+      break;
     case 'Recommendations':
       card.fields.push({content: {type: 'checked', text: 'Recommender 1', checked: false}});
       card.fields.push({content: {type: 'checked', text: 'Recommender 2', checked: false}});
