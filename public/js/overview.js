@@ -58,4 +58,7 @@ return (d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4]);
 deadlineRed();
 doneGreen();
 
+$('.datepicker').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+$('#datetimepicker4').datetimepicker();
+
 

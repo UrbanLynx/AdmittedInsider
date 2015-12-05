@@ -44,3 +44,7 @@
     width: 80% !important;
     height: 90% !important;
 }
+
+.dtp table.dtp-picker-days tr > td {
+	font-size: 1rem !important;
+}
