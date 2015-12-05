@@ -17,6 +17,7 @@
 
 .mdl-card{
 	width: 280px !important;
+	height: 280px !important;
 }
 .mdl-card__title{
 	padding: 10px !important;
@@ -26,7 +27,7 @@
 	padding: 14px !important;
 }
 .mdl-textfield{
-	padding: 14px 0  !important;
+	//padding: 14px 0  !important;
 }
 .mdl-textfield__input{
 	font-size: 14px !important;
