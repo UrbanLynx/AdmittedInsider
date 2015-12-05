@@ -1,7 +1,6 @@
 extends ../layout
 
 block content
-  
   .mdl-layout.mdl-js-layout.mdl-color--grey-100
       main.mdl-layout__content
         .mdl-grid
@@ -10,19 +9,19 @@ block content
             form.form-card.form-horizontal(action='/overview/handle-button', method='POST')
               input(type='hidden', name='_csrf', value=_csrf)
               input(type='hidden', name='applicationId', value=application.id)
-              .mdl-card.mdl-shadow--2dp                    
+              .mdl-card.mdl-shadow--2dp(name='card',id=application.university)              
                 .mdl-card__supporting-text
                   h5 #{application.university.name}
                   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                     textarea#sample5.mdl-textfield__input(type='text', rows='1', name='universityDescription')
                       if application.university.description
                         | #{application.university.description}
-                    label.mdl-textfield__label(for='sample5') Description of university...
+                    label.mdl-textfield__label(for='sample5') Description of university
                   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                    textarea#sample5.mdl-textfield__input(type='text', rows='1', name='universityDeadline')
-                      if application.university.deadline
-                        | #{application.university.deadline}
-                    label.mdl-textfield__label(for='sample5') Deadline (mm/dd/yyyy)...
+                    input#datetimepicker.datepicker.mdl-textfield__input(type='text', name='universityDeadline')
+                    label.mdl-textfield__label(for='datetimepicker') Deadline (mm/dd/yyyy)
+
+                  
                 .mdl-card__actions.mdl-card--border
                   button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Update', value='Update')
                     | Update
@@ -47,17 +46,17 @@ block content
               .mdl-card__supporting-text
                 .mdl-textfield.mdl-js-textfield
                   input#sample1.mdl-textfield__input(type='text', name='universityName')
-                  label.mdl-textfield__label(for='sample1') Name of university...
+                  label.mdl-textfield__label(for='sample1') Name of university
                 
                 .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                   textarea#sample5.mdl-textfield__input(type='text', rows='1', name='universityDescription')
-                  label.mdl-textfield__label(for='sample5') Description of university...
+                  label.mdl-textfield__label(for='sample5') Description of university
               .mdl-card__actions.mdl-card--border
                 button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Add', value='Add Application')
                   | Add application
               .mdl-card__menu
                 button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect
-                  i.material-icons delete
+                  i.material-icons delete     
 
   //Change the color of cards and deadline                
   script(src='/js/overview.js')
