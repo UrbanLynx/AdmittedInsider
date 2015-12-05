@@ -36,19 +36,31 @@ updateCard = function(req, res, type) {
   User.findById(req.user.id, function(err, user) {
     applicationInd = Factory.getApplicationIndex(req.body.applicationId, user.applications)
     cardInd = Factory.getCardIndex(req.body.cardId, user.applications[applicationInd].cards);
-
+    console.log("req.body.cardIndex " + req.body.cardIndex)
+    console.log("req.body.cardId " + req.body.cardId)
     newFields = user.applications[applicationInd].cards[cardInd].fields;
     for (i=0; i < newFields.length; i++){
       content = newFields[i].content
       console.log("Field " + i.toString())
-      console.log(req.body.input+i.toString())
-      newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input'+i.toString()]}}
+
+//      console.log(req.body.input+i.toString())
+      if(user.applications[applicationInd].cards[cardInd].type == 'Gre' || user.applications[applicationInd].cards[cardInd].type == 'Toefl')
+        newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input' + cardInd.toString() + i.toString()]}};
+      else
+      {
+        console.log("reco cards cardId : " + cardInd.toString() + ", fieldId (i) : " + i.toString())
+        newFields[i] = {content: {type: content.type, text: content.text, checked: req.body['checked' + cardInd.toString() + i.toString()]}};
+        console.log("newfields Content " + newFields[i].content.text.toString())
+        console.log("newfields Content checked " + newFields[i].content.checked)
+        //console.log("reco cards new fields : " + newFields[i].content.toString())
+        //console.log("req.body " + req.body.toString())
+      }
     }
     
     user.applications[applicationInd].cards[cardInd].fields = newFields;
   
     user.save(function(err) {
-      req.flash('success', { msg: 'Card added.' });
+      req.flash('success', { msg: 'Card updated.' });
       res.redirect('/application/'+req.body.applicationId)
     });
    });
@@ -63,7 +75,7 @@ deleteCard = function(req, res, type) {
     });
   
     user.save(function(err) {
-      req.flash('success', { msg: 'Card added.' });
+      req.flash('success', { msg: 'Card deleted.' });
       res.redirect('/application/'+req.body.applicationId)
     });
    });
