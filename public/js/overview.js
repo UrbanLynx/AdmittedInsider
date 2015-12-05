@@ -30,8 +30,14 @@ function deadlineRed(){
 		dMillionSeconds = deadlineDate - myDate;
 		dDay = dMillionSeconds/1000/3600/24;
 
-		t = parseInt('FF',16).toString(10);
-		t = t*dDay/30;
+		reddest = parseInt('88',16).toString(10);
+		whitest = parseInt('FF',16).toString(10);
+
+		percent = dDay/30;
+		if (percent>1)
+			percent = 1;
+
+		t = (whitest - reddest)*percent + reddest*1.0;
 		t = parseInt(t,10).toString(16);
 
 		card[i].style.backgroundColor = "#FF"+t+t;
