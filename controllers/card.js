@@ -46,7 +46,11 @@ updateCard = function(req, res, type) {
 //      console.log(req.body.input+i.toString())
       if(user.applications[applicationInd].cards[cardInd].type == 'Gre' || user.applications[applicationInd].cards[cardInd].type == 'Toefl'
         || user.applications[applicationInd].cards[cardInd].type == 'SOP' || user.applications[applicationInd].cards[cardInd].type == 'Resume')
+      {
         newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input' + cardInd.toString() + i.toString()]}};
+        user.applications[applicationInd].cards[cardInd].fields = newFields;
+      }
+        
       else
       {
         console.log("reco cards cardId : " + cardInd.toString() + ", fieldId (i) : " + i.toString())
@@ -61,8 +65,8 @@ updateCard = function(req, res, type) {
     
     //user.applications[applicationInd].cards[cardInd].fields = newFields;
 
-    console.log("after loop newfields : " + newFields[0].content.text.toString() + newFields[1].content.text.toString() + newFields[2].content.text.toString())
-    console.log("user application fields : " + user.applications[applicationInd].cards[cardInd].fields[0].content.text.toString() + user.applications[applicationInd].cards[cardInd].fields[1].content.text.toString() + user.applications[applicationInd].cards[cardInd].fields[2].content.text.toString())
+    //console.log("after loop newfields : " + newFields[0].content.text.toString() + newFields[1].content.text.toString() + newFields[2].content.text.toString())
+    //console.log("user application fields : " + user.applications[applicationInd].cards[cardInd].fields[0].content.text.toString() + user.applications[applicationInd].cards[cardInd].fields[1].content.text.toString() + user.applications[applicationInd].cards[cardInd].fields[2].content.text.toString())
   
     user.save(function(err) {
       req.flash('success', { msg: 'Card updated.' });
