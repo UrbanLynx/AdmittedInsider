@@ -53,12 +53,16 @@ updateCard = function(req, res, type) {
         newFields[i] = {content: {type: content.type, text: content.text, checked: req.body['checked' + cardInd.toString() + i.toString()]}};
         console.log("newfields Content " + newFields[i].content.text.toString())
         console.log("newfields Content checked " + newFields[i].content.checked)
+        user.applications[applicationInd].cards[cardInd].fields = newFields;
         //console.log("reco cards new fields : " + newFields[i].content.toString())
         //console.log("req.body " + req.body.toString())
       }
     }
     
-    user.applications[applicationInd].cards[cardInd].fields = newFields;
+    //user.applications[applicationInd].cards[cardInd].fields = newFields;
+
+    console.log("after loop newfields : " + newFields[0].content.text.toString() + newFields[1].content.text.toString() + newFields[2].content.text.toString())
+    console.log("user application fields : " + user.applications[applicationInd].cards[cardInd].fields[0].content.text.toString() + user.applications[applicationInd].cards[cardInd].fields[1].content.text.toString() + user.applications[applicationInd].cards[cardInd].fields[2].content.text.toString())
   
     user.save(function(err) {
       req.flash('success', { msg: 'Card updated.' });
