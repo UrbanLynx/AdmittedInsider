@@ -9,6 +9,8 @@ block content
             form.form-card.form-horizontal(action='/overview/handle-button', method='POST')
               input(type='hidden', name='_csrf', value=_csrf)
               input(type='hidden', name='applicationId', value=application.id)
+              //To store the deadline date arguement to turning cards red 
+              input(type='hidden', name='deadlineDate', value=application.university.deadline)
               .mdl-card.mdl-shadow--2dp(name='card',id=application.university)              
                 .mdl-card__supporting-text
                   h5 #{application.university.name}
@@ -17,9 +19,9 @@ block content
                       if application.university.description
                         | #{application.university.description}
                     label.mdl-textfield__label(for='sample5') Description of university
-                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                    input#datetimepicker.datepicker.mdl-textfield__input(type='text', name='universityDeadline')
-                    label.mdl-textfield__label(for='datetimepicker') Deadline (mm/dd/yyyy)
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label              
+                    input#datetimepicker.datepicker.mdl-textfield__input(type='text', name='universityDeadline', value=application.university.deadline)
+                    label.mdl-textfield__label(for='datetimepicker') Deadline
 
                   
                 .mdl-card__actions.mdl-card--border
