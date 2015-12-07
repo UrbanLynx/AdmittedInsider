@@ -59,6 +59,11 @@ updateCard = function(req, res, type) {
           newFields[i] = {content: {type: content.type, text: content.text, checked: req.body['checkedinput' + cardInd.toString() + i.toString()], input: req.body['input' + cardInd.toString() + i.toString()]}};
           user.applications[applicationInd].cards[cardInd].fields = newFields;
           break;
+        case 'inputchecked':
+          newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input' + cardInd.toString() + i.toString()], checked1: req.body['inputchecked' + cardInd.toString() + i.toString()], checked2: req.body['inputchecked' + cardInd.toString() + i.toString() + i.toString()], text1: content.text1, text2: content.text2}};
+          user.applications[applicationInd].cards[cardInd].fields = newFields;
+          console.log("GRE/TOEFL " + newFields[i].content.checked1);
+          break;
       }
     }
     

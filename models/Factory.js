@@ -5,13 +5,13 @@ module.exports.getCardOfType = function (type){
   card.type = type;
   switch (type){
     case 'Toefl': 
-      card.fields.push({content: {type: 'input', text: 'University Code', input: ''}});
+      card.fields.push({content: {type: 'inputchecked', text: 'University Code', input: '', checked1: false, checked2: false, text1: 'Sent to university', text2: 'Received by university'}});
       //card.fields.push({type: 'checked', text: 'I sent', checked: false});
       //card.fields.push({type: 'checked', text: 'University received', checked: false});
       //card.fields.push({type: 'date', text: 'Sent on', date: ''});
       break;
     case 'Gre':
-      card.fields.push({content: {type: 'input', text: 'University Code', input: ''}});
+      card.fields.push({content: {type: 'inputchecked', text: 'University Code', input: '', checked1: false, checked2: false, text1: 'Sent to university', text2: 'Received by university'}});
       break;
     case 'SOP':
       card.fields.push({content: {type: 'input', text: 'GDrive Link', input: ''}});
