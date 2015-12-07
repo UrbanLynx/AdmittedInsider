@@ -43,23 +43,22 @@ updateCard = function(req, res, type) {
       content = newFields[i].content
       console.log("Field " + i.toString())
 
-//      console.log(req.body.input+i.toString())
-      if(user.applications[applicationInd].cards[cardInd].type == 'Gre' || user.applications[applicationInd].cards[cardInd].type == 'Toefl'
-        || user.applications[applicationInd].cards[cardInd].type == 'SOP' || user.applications[applicationInd].cards[cardInd].type == 'Resume')
-      {
-        newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input' + cardInd.toString() + i.toString()]}};
-        user.applications[applicationInd].cards[cardInd].fields = newFields;
-      }
-        
-      else
-      {
-        console.log("reco cards cardId : " + cardInd.toString() + ", fieldId (i) : " + i.toString())
-        newFields[i] = {content: {type: content.type, text: content.text, checked: req.body['checked' + cardInd.toString() + i.toString()]}};
-        console.log("newfields Content " + newFields[i].content.text.toString())
-        console.log("newfields Content checked " + newFields[i].content.checked)
-        user.applications[applicationInd].cards[cardInd].fields = newFields;
-        //console.log("reco cards new fields : " + newFields[i].content.toString())
-        //console.log("req.body " + req.body.toString())
+      switch (newFields[i].content.type){
+        case 'input':
+          newFields[i] = {content: {type: content.type, text: content.text, input: req.body['input' + cardInd.toString() + i.toString()]}};
+          user.applications[applicationInd].cards[cardInd].fields = newFields;
+          break;
+        case 'checked':
+          console.log("reco cards cardId : " + cardInd.toString() + ", fieldId (i) : " + i.toString())
+          newFields[i] = {content: {type: content.type, text: content.text, checked: req.body['checked' + cardInd.toString() + i.toString()]}};
+          console.log("newfields Content " + newFields[i].content.text.toString())
+          console.log("newfields Content checked " + newFields[i].content.checked)
+          user.applications[applicationInd].cards[cardInd].fields = newFields;
+          break;
+        case 'checkedinput':
+          newFields[i] = {content: {type: content.type, text: content.text, checked: req.body['checkedinput' + cardInd.toString() + i.toString()], input: req.body['input' + cardInd.toString() + i.toString()]}};
+          user.applications[applicationInd].cards[cardInd].fields = newFields;
+          break;
       }
     }
     
@@ -111,6 +110,9 @@ exports.handleButton = function(req, res){
   }
   else if('SOP' in req.body){
     addCard(req, res, 'SOP');
+  }
+  else if('Transcripts' in req.body){
+    addCard(req, res, 'Transcripts');
   }
   else{
     res.redirect('/application/'+req.body.applicationId)

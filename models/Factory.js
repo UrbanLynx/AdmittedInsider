@@ -20,9 +20,13 @@ module.exports.getCardOfType = function (type){
       card.fields.push({content: {type: 'input', text: 'GDrive Link', input: ''}});
       break;
     case 'Recommendations':
-      card.fields.push({content: {type: 'checked', text: 'Recommender 1', checked: false}});
-      card.fields.push({content: {type: 'checked', text: 'Recommender 2', checked: false}});
-      card.fields.push({content: {type: 'checked', text: 'Recommender 3', checked: false}});
+      card.fields.push({content: {type: 'checkedinput', text: 'Recommender 1', checked: false, input: ''}});
+      card.fields.push({content: {type: 'checkedinput', text: 'Recommender 2', checked: false, input: ''}});
+      card.fields.push({content: {type: 'checkedinput', text: 'Recommender 3', checked: false, input: ''}});
+      break;
+    case 'Transcripts':
+      card.fields.push({content: {type: 'checked', text: 'Sent to university', checked: false}});
+      card.fields.push({content: {type: 'checked', text: 'Received by university', checked: false}});
       break;
     default:
       card.fields.push('nothing')

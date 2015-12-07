@@ -23,11 +23,21 @@ block content
 											if field.content.type == 'input'
 												.mdl-textfield.mdl-js-textfield
 													input.mdl-textfield__input(id='sample'+i, type='text', name='input'+c+i, value=field.content.input)
-													label.mdl-textfield__label(for='sample'+i) #{field.content.text}
+													label.mdl-textfield__label(for='sample'+i) 
 											else if field.content.type == 'checked'
-												label.mdl-checkbox.mdl-js-checkbox(for='chkbox'+i) #{field.content.text}
-													input.mdl-checkbox__input(id='chkbox'+i type='checkbox', name='checked'+c+ '' +i, checked=field.content.checked)
-													br
+												.row
+													.md-col-6
+														label.mdl-checkbox.mdl-js-checkbox(for='chkbox'+i) #{field.content.text}
+															input.mdl-checkbox__input(id='chkbox'+i type='checkbox', name='checked'+c+ '' +i, checked=field.content.checked)
+															br
+											else if field.content.type == 'checkedinput'
+												.row
+													.md-col-6
+														label.mdl-checkbox.mdl-js-checkbox(for='chkbox'+i) #{field.content.text}
+															input.mdl-checkbox__input(id='chkbox'+i type='checkbox', name='checkedinput'+c+ '' +i, checked=field.content.checked)
+															br
+													.md-col-6
+														input.mdl-textfield__input(id='sample'+i, type='text', name='input'+c+i, value=field.content.input)
 										- }
 								.mdl-card__actions.mdl-card--border
 									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Update', value='Update')
@@ -61,3 +71,7 @@ block content
 									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit',
 									name='SOP', value='SOP')
 										| Add link to SOP
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit',
+									name='Transcripts', value='Transcripts')
+										| Add Transcripts
