@@ -41,6 +41,9 @@ function deadlineRed(){
 		t = parseInt(t,10).toString(16);
 
 		card[i].style.backgroundColor = "#FF"+t+t;
+
+		if (percent<0)
+			card[i].style.backgroundColor = "#cccccc";
 	}
 }    
 
