@@ -1,0 +1,85 @@
+extends ../layout
+
+block content
+	h2 Application for #{application.university.name}
+	.mdl-layout.mdl-js-layout.mdl-color--grey-100
+			main.mdl-layout__content
+				.mdl-grid
+					#application
+					- for (var c = 0; c < application.cards.length; c++){
+						- var card = application.cards[c]
+						form.form-card.form-horizontal(action='/application/handle-button', method='POST')
+							input(type='hidden', name='_csrf', value=_csrf)
+							input(type='hidden', name='cardType', value=card.type)
+							input(type='hidden', name='cardId', value=card.id)
+							input(type='hidden', name='applicationId', value=application.id)
+							input(type='hidden', name='cardIndex', value=c)
+							.mdl-card.mdl-shadow--2dp                    
+								.mdl-card__supporting-text
+									h5 #{card.type}
+									.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+										- for (var i = 0; i < card.fields.length; i++) {
+											- var field = card.fields[i]
+											if field.content.type == 'input'
+												.mdl-textfield.mdl-js-textfield
+													input.mdl-textfield__input(id='sample'+i, type='text', name='input'+c+i, value=field.content.input)
+													label.mdl-textfield__label(for='sample'+i) 
+											else if field.content.type == 'checked'
+												label.mdl-checkbox.mdl-js-checkbox(for='chekbox'+i) #{field.content.text}
+													input.mdl-checkbox__input(id='chekbox'+i type='checkbox', name='checked'+c+ '' +i, checked=field.content.checked)
+													br
+											else if field.content.type == 'checkedinput'
+
+												label.mdl-checkbox.mdl-js-checkbox(for='chkbox'+i) #{field.content.text}
+													input.mdl-checkbox__input(id='chkbox'+i type='checkbox', name='checkedinput'+c+ '' +i, checked=field.content.checked)
+													br
+												input.mdl-textfield__input(id='sample'+i, type='text', name='input'+c+i, value=field.content.input)
+											else if field.content.type == 'inputchecked'
+												.mdl-textfield.mdl-js-textfield
+													input.mdl-textfield__input(id='sample'+i, type='text', name='input'+c+i, value=field.content.input)
+													label.mdl-textfield__label(for='sample'+i) 
+										
+												label.mdl-checkbox.mdl-js-checkbox(for='checkbox'+c+i) #{field.content.text1}
+													input.mdl-checkbox__input(id='checkbox'+c+i type='checkbox', name='inputchecked'+c+ '' +i, checked=field.content.checked1)
+													br
+										
+												label.mdl-checkbox.mdl-js-checkbox(for='checkbox'+c+i+i) #{field.content.text2}
+													input.mdl-checkbox__input(id='checkbox'+c+i+i type='checkbox', name='inputchecked'+c+ '' +i+i, checked=field.content.checked2)
+													br
+										- }
+								.mdl-card__actions.mdl-card--border
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Update', value='Update')
+										| Update
+								.mdl-card__menu
+									button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Delete', value='Delete')
+										i.material-icons delete
+						- }
+
+					form.form-card.form-horizontal(action='/application/handle-button', method='POST')
+						input(type='hidden', name='_csrf', value=_csrf)
+						input(type='hidden', name='applicationId', value=application.id)
+						.mdl-card.mdl-shadow--2dp
+							.mdl-card__title
+								h5 Add Card
+							.mdl-card__supporting-text
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Toefl', value='Toefl')
+										| Add TOEFL
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Gre', value='Gre')
+										| Add GRE
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit', name='Recommendations', value='Recommendations')
+										| Add Recommendations
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit',
+									name='Resume', value='Resume')
+										| Add link to Resume
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit',
+									name='SOP', value='SOP')
+										| Add link to SOP
+								.row
+									button.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(type='submit',
+									name='Transcripts', value='Transcripts')
+										| Add Transcripts

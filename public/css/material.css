@@ -1,0 +1,50 @@
+
+.demo-card-wide.mdl-card {
+  width: 512px;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: auto;
+  background: #aaf;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.form-card{
+	margin: 10px;
+}
+
+.mdl-card{
+	width: 300px !important;
+	height: 315px !important;
+}
+.mdl-card__title{
+	padding: 10px !important;
+}
+
+.mdl-card__supporting-text{
+	padding: 14px !important;
+}
+.mdl-textfield{
+	padding: 140px 1  !important;
+}
+.mdl-textfield__input{
+	font-size: 14px !important;
+	padding: 140px 1  !important;
+	margin-bottom: 6px !important;
+}
+
+.mdl-textfield__label{
+	font-size: 14px !important;
+	padding: 140px 1  !important;
+}
+
+.mdl-layout {
+    width: 80% !important;
+    height: 90% !important;
+}
+
+.dtp table.dtp-picker-days tr > td {
+	font-size: 1rem !important;
+}
